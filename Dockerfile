@@ -1,16 +1,16 @@
 FROM alpine:3.20
 
 ARG XRAY_VERSION=26.6.27
+ARG TARGETARCH
 
 ENV XRAY_LOCATION_ASSET=/usr/local/share/xray
 
 RUN apk add --no-cache ca-certificates curl unzip gettext \
     && mkdir -p /usr/local/bin /usr/local/share/xray /etc/xray /var/log/xray \
-    && ARCH=$(uname -m) \
-    && case "$ARCH" in \
-         x86_64)  ZIP="Xray-linux-64.zip" ;; \
-         aarch64) ZIP="Xray-linux-arm64-v8a.zip" ;; \
-         *)       echo "Unsupported arch: $ARCH" && exit 1 ;; \
+    && case "$TARGETARCH" in \
+         amd64) ZIP="Xray-linux-64.zip" ;; \
+         arm64) ZIP="Xray-linux-arm64-v8a.zip" ;; \
+         *)     echo "Unsupported arch: $TARGETARCH" && exit 1 ;; \
        esac \
     && curl -fsSL "https://github.com/XTLS/Xray-core/releases/download/v${XRAY_VERSION}/${ZIP}" -o /tmp/xray.zip \
     && unzip /tmp/xray.zip -d /tmp/xray \
