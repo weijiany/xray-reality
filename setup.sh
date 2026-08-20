@@ -76,7 +76,7 @@ fi
 docker run --rm \
   -p 443:443 \
   --restart always \
-  -v ${HOME}/data/config.json:/var/xray/config.json \
+  -v ${HOME}/data:/var/xray \
   --name xray \
   -e DEST="$DEST" \
   -e SHORT_ID="$SHORT_ID" \
@@ -85,4 +85,4 @@ docker run --rm \
 
 sleep 1
 
-docker logs xray | grep vless_link
+cat ${HOME}/data/vless-link

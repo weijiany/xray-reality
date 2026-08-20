@@ -2,7 +2,8 @@
 set -e
 
 CONFIG_TEMPLATE="/etc/xray/config.template.json"
-CONFIG_JSON="/var/xray/config.json"
+CONFIG_BASE_DIR="/var/xray"
+CONFIG_JSON="${CONFIG_BASE_DIR}/config.json"
 
 if [ -f "$CONFIG_JSON" ]; then
   exec xray run -config "$CONFIG_JSON"
@@ -39,7 +40,8 @@ HOST_IP="$(curl -4 --max-time 3 -fsSL ip.sb 2>/dev/null)"
 
 LINK="vless://${CLIENT_ID}@${HOST_IP}:${DEST_PORT}?tls=1&peer=${DEST_HOST}&xtls=2&pbk=${PUBLIC_KEY}&sid=${SHORT_ID}&fingerprint=Chrome140&remark=${HOST_IP}"
 echo "----------------------"
-echo "vless_link: $LINK"
+echo "vless_link: $LINK" > "${CONFIG_BASE_DIR}/vless-link"
+cat "${CONFIG_BASE_DIR}/vless-link"
 echo "----------------------"
 
 export CLIENT_ID DEST DEST_HOST DEST_PORT PRIVATE_KEY SHORT_ID HOST_IP PUBLIC_KEY
