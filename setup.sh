@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-IMAGE="${XRAY_IMAGE:-ghcr.io/weijiany/xray-reality:xray-v26.6.27}"
+IMAGE="${XRAY_IMAGE:-ghcr.io/weijiany/xray-reality:v0.1.0-xray-v26.6.27}"
 CONTAINER_NAME="${XRAY_CONTAINER_NAME:-xray}"
 
 usage() {
@@ -73,7 +73,7 @@ if ! command -v docker >/dev/null 2>&1; then
   exit 1
 fi
 
-docker run --rm \
+docker run \
   -p 443:443 \
   --restart always \
   -v ${HOME}/data:/var/xray \
