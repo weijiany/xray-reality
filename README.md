@@ -23,7 +23,7 @@ docker build -t xray-reality .
 如果你是本地首次使用，可以直接运行交互式脚本，它会提示你输入 `DEST` 和 `SHORT_ID`，然后启动容器：
 
 ```bash
-./setup.sh
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/weijiany/xray-reality/refs/heads/master/setup.sh)"
 ```
 
 如果更习惯命令行参数，也可以直接传参：
