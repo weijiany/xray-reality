@@ -20,13 +20,27 @@ docker build -t xray-reality .
 
 ### 运行容器
 
+如果你是本地首次使用，可以直接运行交互式脚本，它会提示你输入 `DEST` 和 `SHORT_ID`，然后启动容器：
+
+```bash
+./setup.sh
+```
+
+如果更习惯命令行参数，也可以直接传参：
+
+```bash
+./setup.sh --dest "www.adobe.com:443" --short-id "501cdef45181abcd"
+```
+
+如果不使用交互脚本，也可以直接运行容器：
+
 ```bash
 docker run -d \
   --name xray \
   -p 443:443 \
   -e DEST="www.adobe.com:443" \
   -e SHORT_ID="501cdef45181abcd" \
-  xray-reality
+  ghcr.io/weijiany/xray-reality:xray-v26.6.27
 ```
 
 ### 查看日志
@@ -39,10 +53,10 @@ docker logs xray
 
 ## 环境变量
 
-| 变量 | 必填 | 说明 |
-|------|------|------|
-| `DEST` | ✅ | REALITY 目标地址，格式 `host:port`，如 `www.adobe.com:443` |
-| `SHORT_ID` | ✅ | REALITY short ID，用于客户端与服务端握手验证 |
+| 变量       | 必填 | 说明                                                       |
+|------------|------|------------------------------------------------------------|
+| `DEST`     | ✅   | REALITY 目标地址，格式 `host:port`，如 `www.adobe.com:443` |
+| `SHORT_ID` | ✅   | REALITY short ID，用于客户端与服务端握手验证               |
 
 以下变量由容器自动生成，无需手动配置：
 
@@ -56,6 +70,7 @@ docker logs xray
 ```
 .
 ├── Dockerfile              # 镜像构建文件
+├── setup.sh                # 交互式启动脚本
 ├── entrypoint.sh           # 容器启动脚本
 ├── config.template.json    # Xray 配置模板
 └── .gitignore
