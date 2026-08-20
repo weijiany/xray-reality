@@ -75,3 +75,11 @@ docker logs xray
 - **SNI**: `DEST` 中的 host 部分（如 `www.adobe.com`）
 - **Public Key**: `xray x25519` 输出中 `PrivateKey` 对应的 `PublicKey`
 - **Short ID**: 运行时传入的 `SHORT_ID`
+
+## 📢 注意
+
+本项目仅供学习和研究使用，不用于任何商业或非法目的。
+
+- 使用者应自行承担使用本项目带来的一切风险和法律责任
+- 本项目作者不对因使用本项目造成的任何直接或间接损失负责
+- 使用本项目即表示您已阅读并同意本免责声明
