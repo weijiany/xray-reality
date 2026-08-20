@@ -4,6 +4,9 @@ on:
   push:
     tags:
       - "*"
+    branches:
+      - master
+      - main
 
 jobs:
   build-and-push:
@@ -17,9 +20,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Extract tag name
+      - name: Extract image tag
         id: meta
-        run: echo "tag=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            echo "tag=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=wip-latest" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v4
